@@ -1,0 +1,3 @@
+[submodule "pybindCmake/thirdparty/pybind11"]
+	path = pybindCmake/thirdparty/pybind11
+	url = git@github.com:pybind/pybind11
