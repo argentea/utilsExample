@@ -4,7 +4,7 @@ import matplotlib.pyplot as mp
 import argparse
 import os
 
-def diffData(stddata, aimdata, draw, printData):
+def diffData(stddata, aimdata, outfileName, draw, printData):
     """TODO: Docstring for main.
 
     :arg1: TODO
@@ -30,9 +30,6 @@ def diffData(stddata, aimdata, draw, printData):
     print(diff)
     print(count)
 
-    filestd = os.path.basename(stdFileName)[:-3]
-    fileaim = os.path.basename(aimFileName)[:-3]
-    outfileName = filestd+"Vs"+fileaim
 
     if draw != 0:
         fig, ax = plt.subplots(figsize=(10,7))
@@ -61,4 +58,8 @@ if __name__ == "__main__":
     stddata = np.reshape(stddata, -1, 'C')
     aimdata = np.reshape(aimdata, -1, 'C')
 
-    diffData(stddata, aimdata, args.drawgraph, args.printdata)
+    filestd = os.path.basename(args.stdFileName)[:-3]
+    fileaim = os.path.basename(args.aimFileName)[:-3]
+    outfileName = filestd+"Vs"+fileaim
+
+    diffData(stddata, aimdata, outfileName, args.drawgraph, args.printdata)

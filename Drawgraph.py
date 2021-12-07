@@ -2,11 +2,10 @@ import numpy as np
 import matplotlib.pyplot as mp
 import argparse
 
-def drawGraph(sourceFile, aimFile,x_size=500, upperbound=10, y_size=1):
+def drawGraph(data, aimFile,x_size=500, upperbound=10, y_size=1):
     """TODO: Docstring for main.
     """
 
-    data = np.loadtxt(sourceFile, float)
     depth = data.size//x_size;
     data = np.reshape(data, (depth, x_size), 'C')
 
@@ -27,6 +26,7 @@ def drawGraph(sourceFile, aimFile,x_size=500, upperbound=10, y_size=1):
     '''
 
 
+    aimFileName = aimFile+"{}x{}x{}"
     mp.figure(aimFile.format(depth//y_size, y_size, x_size), figsize=(x_size/10, depth/10),facecolor='lightgray')
     mp.title(aimFile.format(depth//y_size, y_size, x_size))
     mp.grid(linestyle=":")
@@ -45,4 +45,8 @@ if __name__ == "__main__":
     parser.add_argument("-a", "--aimFile", help="aimFile name", type=str, default="./gpufsm")
 
     args = parser.parse_args()
-    drawGraph(args.sourceFile, args.aimFile+"{}x{}x{}", args.x_size, args.upperbound, args.y_size)
+
+
+    data = np.loadtxt(args.sourceFile, float)
+    data = np.reshape(data, -1, 'C')
+    drawGraph(data, args.aimFile, args.x_size, args.upperbound, args.y_size)
