@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as mp
 import argparse
 
-def drawGraph(data, aimFile,x_size=500, upperbound=10, y_size=1):
+def drawjet(data, aimFile,x_size=500, upperbound=10, y_size=1):
     """TODO: Docstring for main.
     """
 
@@ -49,4 +49,4 @@ if __name__ == "__main__":
 
     data = np.loadtxt(args.sourceFile, float)
     data = np.reshape(data, -1, 'C')
-    drawGraph(data, args.aimFile, args.x_size, args.upperbound, args.y_size)
+    drawjet(data, args.aimFile, args.x_size, args.upperbound, args.y_size)
