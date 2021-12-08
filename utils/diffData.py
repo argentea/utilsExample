@@ -34,6 +34,7 @@ def diffData(stddata, aimdata, outfileName, draw, printData):
     if draw != 0:
         fig, ax = plt.subplots(figsize=(10,7))
         ax.hist(diffdata, 20)
+        plt.yscale('log', nonposy='clip')
         plt.show()
         #remove log in string
         plt.savefig(outfileName)
