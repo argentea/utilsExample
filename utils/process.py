@@ -56,7 +56,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
 
-    aim_size = [[40, 1, 500], [40, 50, 50], [40, 500,500], [20, 50, 500]]
+    aim_size = [[1, 1500, 1500]]
     print("aim_size")
     print(aim_size)
     print("loading data")
