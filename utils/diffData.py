@@ -26,8 +26,7 @@ def diffData(stddata, aimdata, outfileName, draw, printData):
                 count = count + 1
         else:
             diffdata.append(0)
-    print("max different")
-    print(diff)
+    print("max different:{}".format(diff))
     print(count)
 
 
