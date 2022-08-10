@@ -1,0 +1,41 @@
+[user]
+	email = kunpeng.jiang@intel.com
+	name = kunpeng
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = auto
+	ui = true
+	pager = true
+[alias]
+	ci = commit
+	co = checkout
+	br = branch
+	st = status
+	sh = show
+	df = diff
+	dc = diff --cached
+	di = diff
+	sb = show-branch
+	ls = log --oneline
+	lg = log -p
+[http]
+	proxy = 
+	default = matching
+[core]
+	autocrlf = false
+	safecrlf = true
+[http]
+	sslVerify = false
+	postBuffer = 2000000000
+[core]
+	editor = vim
+[difftool]
+	prompt = false
+[alias]
+	d = difftool
+[merge]
+	tool = vimdiff
+[diff]
+    tool = vimdiff
