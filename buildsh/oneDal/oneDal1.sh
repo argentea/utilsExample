@@ -1,5 +1,8 @@
 #!/bin/zsh
 
+_oneDalHome=$HOME/test/oneDAL
+_oneDalHome:=$HOME/project/oneDAL
+
 __conda_setup="$('$HOME/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
@@ -21,4 +24,7 @@ export CPATH=$HOME/project/oneDAL/__deps/mklgpufpk/lnx/include:$CPATH
 export CPATH=$HOME/anaconda3/envs/oneDal/include/linux:$HOME/anaconda3/envs/oneDal/include:$CPATH
 
 
-make onedal -j7 PLAT=lnx32e COMPILER=gnu
+cd $_oneDalHome;
+make oneapi -j7 PLAT=lnx32e COMPILER=gnu
+make daal -j7  PLAT=lnx32e COMPILER=gnu
+
