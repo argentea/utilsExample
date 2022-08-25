@@ -1,10 +1,20 @@
 #!/bin/zsh
-#
 
-_oneDalHome=$HOME/test/oneDAL
+## Copyright 2022 Intel Corporation
+##
+##  Content:
+##     scripts for oneAPI Data Analytics Library building
+##
+##                                           by kunpeng: kunpeng.jiang@intel.com
+##******************************************************************************
 
-_oneDalHome:=$HOME/project/oneDAL
-_sampleHome=$_oneDalHome/samples/oneapi/dpc/ccl
+
+#Please set your oneDal source home intel oneapi toolkit home and 
+#sampleHome properly
+
+_oneDalHome=$HOME/project/oneDAL
+_intelOneapiHome=$HOME/intel/oneapi
+_sampleHome=$_oneDalHome/__release_lnx_gnu/daal/latest/samples/oneapi/dpc/ccl/
 
 __conda_setup="$('$HOME/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
@@ -19,29 +29,22 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 conda activate oneDal
-#conda list
 
-#source /opt/intel/oneapi/tbb/latest/env/vars.sh intel64
-
-#find dpcc 
-source /opt/intel/oneapi/compiler/latest/env/vars.sh
-#find daal interface
-export CPATH=$_oneDalHome/__release_lnx_gnu/daal/latest/include:$CPATH
-export CPATH=$_oneDalHome/__release_lnx_gnu/tbb/latest/include:$CPATH
-
+#find dpcpp 
+source $_intelOneapiHome/compiler/latest/env/vars.sh
 #find mpi
-source /opt/intel/oneapi/mpi/2021.6.0/env/vars.sh
-
+source $_intelOneapiHome/mpi/latest/env/vars.sh
 #find ccl
-source /opt/intel/oneapi/ccl/2021.6.0/env/vars.sh
-#export CPATH=/opt/intel/oneapi/mpi/2021.6.0/include:$CPATH
+source $_intelOneapiHome/ccl/latest/env/vars.sh
+#find tbb
+source $_intelOneapiHome/tbb/latest/env/vars.sh
+#Setup openjdk path
+#Which is necessary for daal
+export CPATH=$HOME/anaconda3/envs/oneDal/include/linux:$HOME/anaconda3/envs/oneDal/include:$CPATH
 
-#export CPATH=$_oneDalHome/__deps/mklgpufpk/lnx/include:$CPATH
-#export CPATH=$HOME/anaconda3/envs/oneDal/include/linux:$HOME/anaconda3/envs/oneDal/include:$CPATH
+#Setup shared library location
+export LD_LIBRARY_PATH=$HOME/project/oneDAL/__release_lnx_gnu/tbb/latest/lib/intel64:$LD_LIBRARY_PATH
 
-echo $CPATH
-
-
+#build
 cd $_sampleHome
-
 make sointel64

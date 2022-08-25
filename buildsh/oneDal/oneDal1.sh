@@ -1,12 +1,20 @@
-#!/bin/zsh
+#!/bin/bash
+
+## Copyright 2022 Intel Corporation
+##
+##  Content:
+##     scripts for oneAPI Data Analytics Library building
+##
+##                                           by kunpeng: kunpeng.jiang@intel.com
+##******************************************************************************
+
 
 #Please set your oneDal source home and intel oneapi toolkit home properly
 
 _oneDalHome=$HOME/project/oneDAL
 _intelOneapiHome=$HOME/intel/oneapi
 
-#Suppose you're using anaconda and use oneDal env for oneDal building
-
+#Suppose you're using anaconda and use env named oneDal for oneDal building
 __conda_setup="$('$HOME/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
@@ -20,12 +28,6 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 conda activate oneDal
-#conda list
-
-#discarded env variable config
-#source /opt/intel/oneapi/tbb/latest/env/vars.sh intel64
-#source /opt/intel/oneapi/compiler/latest/env/vars.sh
-
 
 #Find dpcpp, which is necessary for target onapi
 source $_intelOneapiHome/compiler/latest/env/vars.sh
