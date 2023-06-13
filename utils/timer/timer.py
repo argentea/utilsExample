@@ -28,7 +28,6 @@ class Timer():
                 time_stamp = entry["Stamp"]
                 time_metrics.append([stage_name, datetime.strptime(time_stamp, '%Y-%m-%d %H:%M:%S.%f')])
         time_interval = [["AlgoName", time_metrics[0][0]], [self._algoName, str(time_metrics[0][1])]]
-        pre = 0
         for i in range(len(time_metrics)):
             if i == 0:
                 continue
