@@ -70,3 +70,7 @@ if __name__ == "__main__":
     infodata = get_time_info(full_data)
     for algo in infodata:
         np.savetxt(algo+"_info.csv", infodata[algo], delimiter=",", fmt="%s")
+
+        table = tabulate(infodata[algo], tablefmt="fancy_grid")
+        print(table)
+
