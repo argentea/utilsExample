@@ -6,8 +6,8 @@ class Timer():
 
     def __init__(self, algoName):
 
-        self._algoName = algoName
-        self._filename = algoName
+        self._algoName = algoName+"fjdkjfk"
+        self._filename = algoName+"break donw dojfo"
         f = open(self._filename, "w")
         f.write("Stage,Stamp\n")
         f.close()
@@ -37,8 +37,10 @@ class Timer():
                 time_interval[1].append(str(time_metrics[i][1] - time_metrics[i-1][1])[:-3])
         time_interval[0].append("Total")
         time_interval[1].append(str(time_metrics[len(time_metrics)-1][1]-time_metrics[0][1])[:-3])
-        print(tabulate(time_interval, headers='firstrow'))
 
+        format_row = "{:>20}" + "{:>30}" * (len(time_interval[0])-1)
+        print(format_row.format(*time_interval[0]))
+        print(format_row.format(*time_interval[1]))
 
 if __name__ == "__main__":
     timer = Timer("testFile")
