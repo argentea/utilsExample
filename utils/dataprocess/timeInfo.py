@@ -25,10 +25,9 @@ def read_from_file(file_name):
             time_interval.append([time_metrics[i][0], time_metrics[i][1] - time_metrics[i-1][1]])
     time_interval.append(["Total", time_metrics[len(time_metrics)-1][1]-time_metrics[0][1]])
 
-    algo_name = re.sub("_breakdown", "", file_name.split('/')[-1])
+    algo_name = re.sub("time_breakdown*", "", file_name.split('/')[-1])
     return (algo_name, (file_name, time_interval))
 
-    
 def get_time_info(full_data):
     """Get avg and variance for each algo
 
@@ -37,18 +36,20 @@ def get_time_info(full_data):
 
     """
     get_time = lambda x: x.total_seconds()
+    get_str = lambda x: str(x)[:-3]
+    row_name = ["stage", "avg", "std"] 
     algo_info = {}
     for algo in full_data:
         algo_data = []
         for metrics in full_data[algo]:
             file_name, intervals = metrics
-            stage_names = np.squeeze(np.array(intervals)[:, [0]], 1)
+            stage_names = np.vectorize(str)(np.squeeze(np.array(intervals)[:, [0]], 1))
             intervals = np.squeeze(np.array(intervals)[:, [1]], 1)
             algo_data.append(intervals)
         algo_data = np.array(algo_data)
 
-        tmp = np.vectorize(get_time)(algo_data)
-        algo_info[algo] = [stage_names , str(np.average(algo_data, 0)), np.std(np.vectorize(get_time)(algo_data), 0)]
+        algo_info[algo] = np.insert([stage_names, np.vectorize(get_str)(np.average(algo_data, 0)), np.vectorize(str)(np.std(np.vectorize(get_time)(algo_data), 0))], 0, row_name, 1)
+        
 
     return algo_info
 
@@ -67,5 +68,5 @@ if __name__ == "__main__":
         else:
             full_data[metrics[0]] = [metrics[1]]
     infodata = get_time_info(full_data)
-    print(infodata)
-
+    for algo in infodata:
+        np.savetxt(algo+"_info.csv", infodata[algo], delimiter=",", fmt="%s")
