@@ -28,7 +28,7 @@ def read_from_file(file_name):
     algo_name = re.sub("time_breakdown*", "", file_name.split('/')[-1])
     return (algo_name, (file_name, time_interval))
 
-def get_time_info(full_data):
+def get_time_info(full_data, time_format):
     """Get avg and variance for each algo
 
     :full_data: {algo_name: [{metric_name: array[stages, time_interval}]]}
@@ -36,7 +36,15 @@ def get_time_info(full_data):
 
     """
     get_time = lambda x: x.total_seconds()
-    get_str = lambda x: str(x)[:-3]
+    if time_format == 'second':
+        get_str = lambda x: str(get_time(x))
+    elif time_format == 'date':
+        get_str = lambda x: str(x)[:-3]
+    else:
+        print("time format not supported")
+        exit(1)
+
+
     row_name = ["stage", "avg", "std"] 
     algo_info = {}
     for algo in full_data:
@@ -57,8 +65,10 @@ def get_time_info(full_data):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('file_name', metavar='file', type=str, nargs='+', help='file name of breakdown file')
+    parser.add_argument('-t', '--time_format', choices=['date', 'second', 'millisecond'], default='second')
+    parser.add_argument('-f', '--file_name', type=str, nargs='+', help='file name of breakdown file')
     args = parser.parse_args()
+    time_format = args.time_format
 
     full_data = {}
     for file_name in args.file_name:
@@ -67,7 +77,7 @@ if __name__ == "__main__":
             full_data[metrics[0]].append(metrics[1])
         else:
             full_data[metrics[0]] = [metrics[1]]
-    infodata = get_time_info(full_data)
+    infodata = get_time_info(full_data, time_format)
     for algo in infodata:
         np.savetxt(algo+"_info.csv", infodata[algo], delimiter=",", fmt="%s")
 
