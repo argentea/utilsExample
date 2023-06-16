@@ -65,7 +65,7 @@ def get_time_info(full_data, time_format):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('-t', '--time_format', choices=['date', 'second', 'millisecond'], default='second')
+    parser.add_argument('-t', '--time_format', choices=['date', 'second'], default='second')
     parser.add_argument('-f', '--file_name', type=str, nargs='+', help='file name of breakdown file')
     args = parser.parse_args()
     time_format = args.time_format
