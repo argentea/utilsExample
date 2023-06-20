@@ -1,0 +1,8 @@
+Kernel, N calls, Flop Count, Read bytes, Write bytes
+computeSuqares, Ni, Kp, Sf*K*p, Sf*K
+initDistances, Ni, 0, Sf*K, Sf*K*N
+computeDistances, Ni, K*p*N, Sf*p*(K+N)+Sf*K*N, Sf*K*N
+computeAssignments, Ni, 0, Sf*K*N, 2*Sf*N
+computeSquares, Ni, N*p, Sf*N*p, Sf*N
+updateObjective, Ni, N*Km 2*Sf*N, 0
+Reassignments, Ni, 0, 2*Sf*N*K, Sf*N*K
